@@ -38,7 +38,7 @@ end
 
 #Inicio programa con Menú OK
 
-puts 'Sistema de Información Académica'
+puts 'Bienvenid@ al Sistema de Información Académica'
 option = 0
 while option != '4'
   puts 'Ingresa 1 para conocer el promedio de cada alumno'
@@ -54,6 +54,10 @@ while option != '4'
   when '2'
 
   when '3'
-  else exit
+
+  when '4'
+    exit
+  else '*** La opción ingresada no es válida, inténtalo nuevamente ***'
+
   end
 end
