@@ -18,7 +18,7 @@ def get_average(score)
   sum = 0
   score.each do |ele|
     unless ele == 'A'
-      sum +=  ele.to_i
+      sum +=  ele.to_f
     end
   end
   return prom = sum / 5.to_f
@@ -43,7 +43,7 @@ end
 #End Opción2: inasistencias totales OK
 
 #Begin Opción 3 : Aprobados
-def approved(default_score)
+def approved(default_score = 5)
   file = File.open('students.csv', 'r')
   students = file.readlines
   file.close
@@ -51,8 +51,7 @@ def approved(default_score)
   students.each { |line| new_students.push(line.split(', ').map(&:chomp)) }
   new_students.map do |score|
     name = score.shift
-    default_score == 5
-    if get_average(score) >= default_score
+    if get_average(score) >= default_score.to_f
       puts "#{name} aprobó"
     end
   end
@@ -74,12 +73,17 @@ while option != '4'
   when '1'
     puts "Se ha generado el archivo Average-score.csv con el promedio de los alumnos #{average_score}"
   when '2'
-    puts inasistencias
+     inasistencias
   when '3'
-    puts approved(5)
+    puts 'Ingresa la nota mínima de aprobación (presione enter si desea 5)'
+          default_score = gets.chomp.to_f
+          if default_score.zero?
+          approved()
+          else
+            approved(default_score)
+          end
   when '4'
     exit
   else '*** La opción ingresada no es válida, inténtalo nuevamente ***'
-
   end
 end
