@@ -1,5 +1,4 @@
 #Begin Opción 1: sacar promedio
-
 def average_score
   file = File.open('students.csv', 'r')
   students = file.readlines
@@ -24,11 +23,9 @@ def get_average(score)
   end
   return prom = sum / 5.to_f
 end
-
 # End Opción 1: sacar promedio
 
 # Begin Opción2: inasistencias totales OK
-
 def inasistencias
   file = File.open('students.csv', 'r')
   students = file.readlines
@@ -45,8 +42,24 @@ def inasistencias
 end
 #End Opción2: inasistencias totales OK
 
-#Inicio programa con Menú OK
+#Begin Opción 3 : Aprobados
+def approved(default_score)
+  file = File.open('students.csv', 'r')
+  students = file.readlines
+  file.close
+  new_students = []
+  students.each { |line| new_students.push(line.split(', ').map(&:chomp)) }
+  new_students.map do |score|
+    name = score.shift
+    default_score == 5
+    if get_average(score) >= default_score
+      puts "#{name} aprobó"
+    end
+  end
+end
+#End Opción3: Aprobados
 
+#Inicio programa con Menú OK
 puts 'Bienvenid@ al Sistema de Información Académica'
 option = 0
 while option != '4'
@@ -63,7 +76,7 @@ while option != '4'
   when '2'
     puts inasistencias
   when '3'
-    puts
+    puts approved(5)
   when '4'
     exit
   else '*** La opción ingresada no es válida, inténtalo nuevamente ***'
